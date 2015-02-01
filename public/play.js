@@ -27,3 +27,13 @@
     player.cueVideoById(data);
     player.playVideo();
   });
+
+    socket.on('pause', function () {
+    $( "<p>Got em 2</p>").appendTo('.luke');
+    player.pauseVideo();
+  });
+
+    socket.on('play', function (){
+    $( "<p>Got em 3</p>").appendTo('.luke'); 
+    player.playVideo();
+  });

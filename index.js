@@ -70,6 +70,14 @@ io.on('connection', function (socket) {
   });
 
 
+  socket.on('pauseVideo', function () {
+    socket.broadcast.emit('pause', 'anything');
+  });
+
+  socket.on('playVideo', function() {
+    socket.broadcast.emit('play', 'anything');
+  });
+
 
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {
