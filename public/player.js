@@ -16,7 +16,6 @@
           height: '390',
           width: '640',
           videoId: videoID,
-          playerVars: {'autoplay': 1, 'controls': 0 },
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -34,14 +33,17 @@
       //    the player should play for six seconds and then stop.
       var done = false;
       function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          //setTimeout(stopVideo, 6000);
-          done = true;
+        if (event.data == YT.PlayerState.PLAYING) {
+          socket.emit('playVideo')
         } else if (event.data == YT.PlayerState.ENDED){
           player.cueVideoById('M7lc1UVf-VE');
           player.playVideo();
+        } else if (event.data == YT.PlayerState.PAUSED){
+          socket.emit('pauseVideo')
         } 
       }
+
+      
       function stopVideo() {
         player.stopVideo();
       }

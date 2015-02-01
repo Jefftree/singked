@@ -66,11 +66,17 @@ io.on('connection', function (socket) {
  
    // when the client emits videoid
   socket.on('videoid', function (data) {
-    console.log(data);
     socket.broadcast.emit('videoid', data);
-    console.log(data);
   });
 
+
+  socket.on('pauseVideo', function () {
+    socket.broadcast.emit('pause', 'anything');
+  });
+
+  socket.on('playVideo', function() {
+    socket.broadcast.emit('play', 'anything');
+  });
 
 
   // when the user disconnects.. perform this
