@@ -1,10 +1,5 @@
 
 
-  var $messages = '69'; 
-
-  // Prompt for setting a username
-
-
   var socket = io();
 
 
@@ -17,23 +12,32 @@
       socket.emit('videoid', video);
     }
 
-
-
+    function addVideo (video) {
+      // tell server to execute 'new message' and send along one parameter
+      //$( "<p>Test2</p>").appendTo('.luke');
+      socket.emit('add video', video);
+    }
 
 
   // Whenever the server emits 'typing', show the typing message
   socket.on('videoid', function (data) {
-    $( "<p>Got em</p>").appendTo('.luke'); 
+    /*$( "<p>Got em</p>").appendTo('.luke'); */
     player.cueVideoById(data);
     player.playVideo();
   });
 
-    socket.on('pause', function () {
-    $( "<p>Got em 2</p>").appendTo('.luke');
+  socket.on('pause', function () {
+    /*$( "<p>Got em 2</p>").appendTo('.luke');*/
     player.pauseVideo();
   });
 
-    socket.on('play', function (){
-    $( "<p>Got em 3</p>").appendTo('.luke'); 
+  socket.on('play', function (){
+    /*$( "<p>Got em 3</p>").appendTo('.luke');*/ 
     player.playVideo();
   });
+
+  socket.on('added video', function (video) {
+    addedVideo(video);
+  });
+
+

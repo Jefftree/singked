@@ -9,11 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SyncTube</title>
+    <title>SingSynced</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <!-- Custom CSS -->
     <link href="css/freelancer.css" rel="stylesheet">
 
@@ -21,7 +21,6 @@
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,6 +36,7 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      iframe {border-style: solid;}
     </style>
      
 
@@ -55,7 +55,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#page-top">SyncTube</a>
+                <a class="navbar-brand" href="#page-top"><span class="glyphicon glyphicon-music" aria-hidden="true"></span> SingSynced</a>
             </div>
 
             <!-- /.navbar-collapse -->
@@ -68,51 +68,49 @@
     <!-- Portfolio Grid Section -->
     <section id="portfolio">
         <div class="container">
-        <br /><br /><br /><br /><br />
+        <br />
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>SyncTube</h2>
-                    <hr class="star-primary">
+                    <h2><span class="glyphicon glyphicon-music" aria-hidden="true"></span> SingSynced</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <iframe src="chat.html" width="100%" height="500px" frameBorder="2px"></iframe>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <iframe src="heavy.html" width="100%" height="500px" frameborder="none"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- About Section -->
-    <section class="success" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>About</h2>
-                    <hr class="star-light">
+<!--                   <ul class="pages">
+                    <li class="chat page">
+                      <div class="chatArea">
+                        <ul class="messages"></ul>
+                      </div>
+                      <input class="inputMessage" placeholder="Type here..."/>
+                    </li>
+                    <li class="login page">
+                      <div class="form">
+                        <h3 class="title">Enter username: </h3>
+                        <input class="usernameInput" type="text" maxlength="14" />
+                      </div>
+                    </li>
+                  </ul> -->
+                    <iframe src="chat.html" width="100%" height="500px"></iframe>
                 </div>
             </div>
+            <br /><br />
             <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-                <div class="col-lg-4">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <div class="col-lg-12">
+                    <!-- <iframe src="heavy.html" width="100%" height="500px" frameborder="none"></iframe> -->
+                        <div id="player"></div>
+                          <div class="input-group">
+                          <span class="input-group-btn">
+                            <button class="button btn btn-default" type="button">Queue Video</button>
+                          </span>
+                          <input type="text" class="queue-vid form-control" name="name" id="name" size="5" value="" class="text-input" />
+                        </div> 
+                        <div class="panel panel-info">
+                          <div class="panel-heading">Up Next</div>
+                          <div class="panel-body" style="min-height: 390px">
+                            <ul class="luke list-group"></ul>
+                          </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -121,43 +119,12 @@
 
     <!-- Footer -->
     <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>S</h3>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Got em </h3>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="footer-below">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; Your Website 2014
+                        Created by: Jeffrey Ying, Luke Kim, Henry Du
                     </div>
                 </div>
             </div>
@@ -184,29 +151,10 @@
     <!-- <script src="js/freelancer.js"></script> -->
        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
       <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-        <script>
-          var socket = io();
-          $('form').submit(function(){
-            socket.emit('chat message', $('#m').val());
-            $('#m').val('');
-            return false;
-          });
-        </script>
-        <script src="/socket.io/socket.io.js"></script>
-          <script>
-            var socket = io();
-          </script> 
-        <script>
-        var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-        });
-      </script>   
+      <script src="/socket.io/socket.io.js"></script>
+  
+     <script src="player.js"></script>
+    <script src="play.js"></script> 
 </body>
 
 </html>

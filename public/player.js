@@ -1,3 +1,15 @@
+       $(function() {
+          $(".button").click(function() {
+            var name = $("input#name").val();
+            addVideo(name);
+            addedVideo(name);
+            /*player.cueVideoById(name);
+            player.playVideo();
+            sendMessage(name);*/
+            $('.queue-vid').val("");
+          });
+        });
+
 
       //User input here
       var videoID = 'M7lc1UVf-VE';
@@ -14,7 +26,7 @@
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '390',
-          width: '640',
+          width: '100%',
           videoId: videoID,
           events: {
             'onReady': onPlayerReady,
@@ -34,16 +46,22 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING) {
-          socket.emit('playVideo')
+          socket.emit('playVideo');
         } else if (event.data == YT.PlayerState.ENDED){
-          player.cueVideoById('M7lc1UVf-VE');
+          player.cueVideoById(videoID);
           player.playVideo();
+          /*$('.luke').first().hide();*/
         } else if (event.data == YT.PlayerState.PAUSED){
-          socket.emit('pauseVideo')
+          socket.emit('pauseVideo');
         } 
       }
 
       
-      function stopVideo() {
-        player.stopVideo();
-      }
+  function stopVideo() {
+    player.stopVideo();
+  }
+
+  function addedVideo (video){
+    $( "<li class=\"list-group-item\"><a href=\"https://www.youtube.com/watch?v="+ video + "\">" + video + "</a></li>").appendTo('.luke');
+    videoID = video;
+  }

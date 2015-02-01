@@ -28,9 +28,9 @@ $(function() {
   function addParticipantsMessage (data) {
     var message = '';
     if (data.numUsers === 1) {
-      message += "there's 1 participant";
+      message += "One user online";
     } else {
-      message += "there are " + data.numUsers + " participants";
+      message += "" + data.numUsers + " users online";
     }
     log(message);
   }
@@ -229,7 +229,7 @@ $(function() {
   socket.on('login', function (data) {
     connected = true;
     // Display the welcome message
-    var message = "Welcome to SyncTube!";
+    var message = ""; //placeholder
     log(message, {
       prepend: true
     });

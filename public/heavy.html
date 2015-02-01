@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html>
   <body>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
-    <div class="luke"></div>
+      <div class="input-group">
+      <span class="input-group-btn">
+        <button class="button btn btn-default" type="button">Queue Video</button>
+      </span>
+      <input type="text" class="form-control" name="name" id="name" size="5" value="" class="text-input" />
+    </div> 
+    <div class="panel panel-info">
+      <div class="panel-heading">Up Next</div>
+      <div class="panel-body">
+        <ul class="luke"></ul>
+      </div>
+    </div>
 
-            <input type="text" name="name" id="name" size="30" value="" class="text-input" />
-            <input type="submit" value="Play" class="button"/>
-
-        <!-- the result of the search will be rendered inside this div -->
-        <div id="result"></div>
+       <!--  <div id="result"></div> -->
 
 
 
     <script src="player.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="play.js"></script>
-    <script>
-       $(function() {
-          $(".button").click(function() {
-            var name = $("input#name").val();
-
-            player.cueVideoById(name);
-            player.playVideo();
-            sendMessage(name);
-          });
-        });
-    </script>
   </body>
 </html>

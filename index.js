@@ -18,6 +18,9 @@ app.use(express.static(__dirname + '/public'));
 var usernames = {};
 var numUsers = 0;
 
+
+var videoList = {};
+
 io.on('connection', function (socket) {
   var addedUser = false;
 
@@ -47,6 +50,18 @@ io.on('connection', function (socket) {
       numUsers: numUsers
     });
   });
+
+
+
+  //add ideo
+  socket.on('add video', function (video) {
+ 
+    // add the client's username to the global list
+    videoList[video] = video;
+    socket.broadcast.emit('added video', video);
+  });
+
+
 
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
