@@ -61,6 +61,16 @@ io.on('connection', function (socket) {
       username: socket.username
     });
   });
+ 
+   // when the client emits videoid
+  socket.on('videoid', function (data) {
+    console.log('luke');
+    socket.broadcast.emit('videoid', {
+      videoid: data
+    });
+  });
+
+
 
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {
