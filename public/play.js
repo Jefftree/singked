@@ -26,14 +26,26 @@
     player.playVideo();
   });
 
-  socket.on('pause', function () {
+  socket.on('pause', function (data) {
     /*$( "<p>Got em 2</p>").appendTo('.luke');*/
-    player.pauseVideo();
+    if ((player.getPlayerState() != YT.PlayerState.BUFFERING) &&
+        (player.getPlayerState() != YT.PlayerState.PAUSED) &&
+        ((player.getCurrentTime() > (data + 3)) ||
+        (player.getCurrentTime() < (data + 6)))) {
+      player.pauseVideo();
+      player.seekTo(data);
+      player.pauseVideo();
+    } else {
+      player.pauseVideo();
+    };
+    
+
   });
 
   socket.on('play', function (){
     /*$( "<p>Got em 3</p>").appendTo('.luke');*/ 
-    player.playVideo();
+      player.playVideo();
+    
   });
 
   socket.on('added video', function (video) {

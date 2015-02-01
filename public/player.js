@@ -13,6 +13,7 @@
 
       //User input here
       var videoID = 'M7lc1UVf-VE';
+      var videoIDarray = [];
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
@@ -46,15 +47,17 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING) {
-          socket.emit('playVideo');
+          socket.emit('playVideo', player.getCurrentTime());
         } else if (event.data == YT.PlayerState.ENDED){
-          player.cueVideoById(videoID);
-          player.playVideo();
+          player.cueVideoById(videoIDarray.shift());
+
           /*$('.luke').first().hide();*/
-        } else if (event.data == YT.PlayerState.PAUSED){
-          socket.emit('pauseVideo');
+        } else if ((event.data == YT.PlayerState.PAUSED) ||
+                   (event.data == YT.PlayerState.BUFFERING)) {
+          player.pauseVideo();
+          socket.emit('pauseVideo', player.getCurrentTime());
         } 
-      }
+      };
 
       
   function stopVideo() {
@@ -63,5 +66,5 @@
 
   function addedVideo (video){
     $( "<li class=\"list-group-item\"><a href=\"https://www.youtube.com/watch?v="+ video + "\">" + video + "</a></li>").appendTo('.luke');
-    videoID = video;
+    videoIDarray.push(video);
   }
