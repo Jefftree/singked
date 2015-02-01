@@ -85,11 +85,11 @@ io.on('connection', function (socket) {
   });
 
 
-  socket.on('pauseVideo', function () {
-    socket.broadcast.emit('pause', 'anything');
+  socket.on('pauseVideo', function (data) {
+    socket.broadcast.emit('pause', data);
   });
 
-  socket.on('playVideo', function() {
+  socket.on('playVideo', function () {
     socket.broadcast.emit('play', 'anything');
   });
 
