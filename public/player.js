@@ -16,6 +16,7 @@
           height: '390',
           width: '640',
           videoId: videoID,
+          playerVars: {'autoplay': 1, 'controls': 0 },
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -39,7 +40,7 @@
         } else if (event.data == YT.PlayerState.ENDED){
           player.cueVideoById('M7lc1UVf-VE');
           player.playVideo();
-        }
+        } 
       }
       function stopVideo() {
         player.stopVideo();

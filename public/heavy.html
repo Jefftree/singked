@@ -11,19 +11,22 @@
 
         <!-- the result of the search will be rendered inside this div -->
         <div id="result"></div>
-        <script>
-           $(function() {
-              $(".button").click(function() {
-                var name = $("input#name").val();
-                player.cueVideoById(name);
-                player.playVideo();
-              });
-            });
-        </script>
+
 
 
     <script src="player.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src"/play.js"></script>
+    <script src="play.js"></script>
+    <script>
+           $(function() {
+              $(".button").click(function() {
+                var name = $("input#name").val();
+
+                player.cueVideoById(name);
+                player.playVideo();
+                sendMessage(name);
+              });
+            });
+        </script>
   </body>
 </html>

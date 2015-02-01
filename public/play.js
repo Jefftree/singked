@@ -1,7 +1,6 @@
-/*$(function() {
+
 
   var $messages = '69'; 
-  $( "<p>Test2</p>").appendTo('.luke');
 
   // Prompt for setting a username
 
@@ -9,19 +8,22 @@
   var socket = io();
 
 
+  var videoid2 = "2";
+
       // Sends a chat message
-    function sendMessage () {
+    function sendMessage (video) {
       // tell server to execute 'new message' and send along one parameter
-      socket.emit('videoid', videoID);
+      //$( "<p>Test2</p>").appendTo('.luke');
+      socket.emit('videoid', video);
     }
 
-    sendMessage();
+
 
 
 
   // Whenever the server emits 'typing', show the typing message
   socket.on('videoid', function (data) {
-    $( "<p>Test2</p>").appendTo('.luke');
+    $( "<p>Got em</p>").appendTo('.luke'); 
+    player.cueVideoById(data);
+    player.playVideo();
   });
-
-});*/

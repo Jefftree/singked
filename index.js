@@ -61,13 +61,14 @@ io.on('connection', function (socket) {
       username: socket.username
     });
   });
+
+
  
    // when the client emits videoid
   socket.on('videoid', function (data) {
-    console.log('luke');
-    socket.broadcast.emit('videoid', {
-      videoid: data
-    });
+    console.log(data);
+    socket.broadcast.emit('videoid', data);
+    console.log(data);
   });
 
 
