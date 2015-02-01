@@ -18,15 +18,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="play.js"></script>
     <script>
-           $(function() {
-              $(".button").click(function() {
-                var name = $("input#name").val();
+       $(function() {
+          $(".button").click(function() {
+            var name = $("input#name").val();
 
-                player.cueVideoById(name);
-                player.playVideo();
-                sendMessage(name);
-              });
-            });
-        </script>
+            player.cueVideoById(name);
+            player.playVideo();
+            sendMessage(name);
+          });
+        });
+    </script>
   </body>
 </html>

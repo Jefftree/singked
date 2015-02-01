@@ -66,9 +66,7 @@ io.on('connection', function (socket) {
  
    // when the client emits videoid
   socket.on('videoid', function (data) {
-    console.log(data);
     socket.broadcast.emit('videoid', data);
-    console.log(data);
   });
 
 
