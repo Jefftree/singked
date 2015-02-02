@@ -1,6 +1,7 @@
+node_modules
+
 auth.js
 app.js
-LICENSE
 npm-debug.log
 
 # Windows image file caches
