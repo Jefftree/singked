@@ -18,6 +18,9 @@
       socket.emit('add video', video);
     }
 
+    socket.emit('emitVideo'); 
+    socket.emit('getVideoTime'); 
+
 
   // Whenever the server emits 'typing', show the typing message
   socket.on('videoid', function (data) {
@@ -53,3 +56,7 @@
   });
 
 
+
+ socket.on('provideVideoTime', function (data) {
+    provideVideoTime(data); 
+  });

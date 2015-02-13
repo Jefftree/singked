@@ -4,6 +4,8 @@ auth.js
 app.js
 npm-debug.log
 
+*.todo
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

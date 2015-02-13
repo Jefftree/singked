@@ -17,10 +17,12 @@ app.use(express.static(__dirname + '/public'));
 // usernames which are currently connected to the chat
 var usernames = {};
 var numUsers = 0;
+var playing = false;
+var time = 0;
 
-
-var videoList = {};
-
+var videoList = new Array();
+videoList.push("M7lc1UVf-VE");
+videoList.push("y3iZACDBapU");
 io.on('connection', function (socket) {
   var addedUser = false;
 
@@ -51,18 +53,6 @@ io.on('connection', function (socket) {
     });
   });
 
-
-
-  //add ideo
-  socket.on('add video', function (video) {
- 
-    // add the client's username to the global list
-    videoList[video] = video;
-    socket.broadcast.emit('added video', video);
-  });
-
-
-
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
     socket.broadcast.emit('typing', {
@@ -77,13 +67,41 @@ io.on('connection', function (socket) {
     });
   });
 
-
+    //add video
+  socket.on('add video', function (video) {
  
+    videoList.push(video);
+    socket.emit('added video', videoList);
+    socket.broadcast.emit('added video', videoList);
+  });
+
+
+
+  socket.on('videoDone', function (){
+    if (playing) { 
+      playing = false;
+         videoList.shift();
+   socket.emit('added video', videoList);
+    socket.broadcast.emit('added video', videoList);
+    }
+
+  });
+ 
+  socket.on('videoStarted', function (){
+   playing=true;
+  });
+
+
    // when the client emits videoid
   socket.on('videoid', function (data) {
     socket.broadcast.emit('videoid', data);
   });
 
+
+
+  socket.on('emitVideo', function (data) {
+    socket.emit('added video', videoList);
+  });
 
   socket.on('pauseVideo', function (data) {
     socket.broadcast.emit('pause', data);
@@ -94,6 +112,17 @@ io.on('connection', function (socket) {
   });
 
 
+  socket.on('getVideoTime', function(){
+    socket.broadcast.emit('getCurVideoTime');
+  });
+
+var readyToSet = false;
+
+  socket.on('loadVideoTime', function (data){
+      time = data;
+      readyToSet = true;
+      setVideoTime();
+  });
   // when the user disconnects.. perform this
   socket.on('disconnect', function () {
     // remove the username from global usernames list
@@ -108,4 +137,14 @@ io.on('connection', function (socket) {
       });
     }
   });
+
+
+  function setVideoTime () {
+    if (readyToSet) {
+      readyToSet= false;
+      socket.broadcast.emit('provideVideoTime', time);
+    } else {
+      setVideoTime();
+    }
+  }
 });

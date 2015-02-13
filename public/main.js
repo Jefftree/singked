@@ -21,7 +21,7 @@ $(function() {
   var connected = false;
   var typing = false;
   var lastTypingTime;
-  var $currentInput = $usernameInput.focus();
+  var $currentInput = $inputMessage.focus();
 
   var socket = io();
 
@@ -35,17 +35,16 @@ $(function() {
     log(message);
   }
 
+
+
   // Sets the client's username
   function setUsername () {
-    username = cleanInput($usernameInput.val().trim());
-
+    username = cleanInput($inputMessage.val().trim());
+    $inputMessage.val('');
     // If the username is valid
     if (username) {
-      $loginPage.fadeOut();
-      $chatPage.show();
-      $loginPage.off('click');
       $currentInput = $inputMessage.focus();
-
+      $inputMessage.attr("placeholder", "Enter message");
       // Tell the server your username
       socket.emit('add user', username);
     }
@@ -68,6 +67,13 @@ $(function() {
     }
   }
 
+
+
+
+
+
+
+//========================= DURING ===========================================
   // Log a message
   function log (message, options) {
     var $el = $('<li>').addClass('log').text(message);
@@ -85,10 +91,16 @@ $(function() {
     }
 
     var $usernameDiv = $('<span class="username"/>')
-      .text(data.username)
+      .text(data.username+": ")
       .css('color', getUsernameColor(data.username));
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
+
+    if (username == data.username){
+      $messageBodyDiv.addClass("self");
+    } else {
+      $messageBodyDiv.removeClass("self");
+    }
 
     var typingClass = data.typing ? 'typing' : '';
     var $messageDiv = $('<li class="message"/>')
@@ -111,8 +123,8 @@ $(function() {
     getTypingMessages(data).fadeOut(function () {
       $(this).remove();
     });
-  }
-
+  
+}
   // Adds a message element to the messages and scrolls to the bottom
   // el - The element to add as a message
   // options.fade - If the element should fade-in (default = true)
@@ -196,7 +208,7 @@ $(function() {
       $currentInput.focus();
     }
     // When the client hits ENTER on their keyboard
-    if (event.which === 13) {
+    if (event.which === 13 && $inputMessage.is(":focus")) {
       if (username) {
         sendMessage();
         socket.emit('stop typing');
@@ -229,7 +241,7 @@ $(function() {
   socket.on('login', function (data) {
     connected = true;
     // Display the welcome message
-    var message = ""; //placeholder
+    var message = "Welcome!"; //placeholder
     log(message, {
       prepend: true
     });
@@ -243,7 +255,7 @@ $(function() {
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
-    log(data.username + ' joined');
+    log(data.username + ' reached');
     addParticipantsMessage(data);
   });
 

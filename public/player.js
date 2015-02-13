@@ -1,70 +1,70 @@
-       $(function() {
-          $(".button").click(function() {
-            var name = $("input#name").val();
-            addVideo(name);
-            addedVideo(name);
-            /*player.cueVideoById(name);
-            player.playVideo();
-            sendMessage(name);*/
-            $('.queue-vid').val("");
-          });
-        });
+   $(function() {
+      $(".queue-video").click(function() {
+        var name = $("input#name").val();
+        addVideo(name);
+        /*addedVideo(name);*/
+        /*player.cueVideoById(name);
+        player.playVideo();
+        sendMessage(name);*/
+        $('.queue-vid').val("");
+      });
+
+      $(".skip-song").click(function (){
+        nextVideo();
+      });
+    });
 
 
       //User input here
-      var videoID = 'M7lc1UVf-VE';
-      var videoIDarray = [];
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '390',
-          width: '100%',
-          videoId: videoID,
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING) {
-          socket.emit('playVideo', player.getCurrentTime());
-        } else if (event.data == YT.PlayerState.ENDED){
-          player.cueVideoById(videoIDarray.shift());
-
-          /*$('.luke').first().hide();*/
-        } else if ((event.data == YT.PlayerState.PAUSED) ||
-                   (event.data == YT.PlayerState.BUFFERING)) {
-          player.pauseVideo();
-          socket.emit('pauseVideo', player.getCurrentTime());
-        } 
-      };
-
       
-  function stopVideo() {
-    player.stopVideo();
+      var videoIDarray = [];
+      var seeking = 0;
+      var firstLoad = 1;
+
+
+
+  function playingVideo (){
+    // Tell other players that video is playing
+    socket.emit('playVideo', player.getCurrentTime());
+    // Seek to location        
+    if (firstLoad == 1){ 
+      player.seekTo(seeking);
+      firstLoad = 0;
+    }
+    socket.emit('videoStarted')
+  }
+  
+  function pauseVideo() {
+    player.pauseVideo();
+    socket.emit('pauseVideo', player.getCurrentTime());
+  }    
+
+  // Skips to next Video. Still buggy
+  function nextVideo (){
+      player.cueVideoById(videoIDarray.shift());
+      $('.luke').children().first().remove();
+      socket.emit('videoDone'); 
+      playingVideo();
+  } 
+
+  function addedVideo (videoList){
+     console.log(videoList);
+    var video = videoList[0];
+    if ($('.luke').children().length > 0) {
+      $('.luke').children().remove();
+    }
+    for (var i = 0 ; i < videoList.length; i++) {
+      $( "<li class=\"list-group-item\"><a href=\"https://www.youtube.com/watch?v="+ videoList[i] + "\">" + videoList[i] + "</a></li>").appendTo('.luke');
+    }
+    videoIDarray = videoList.slice();
+    console.log(videoIDarray);
   }
 
-  function addedVideo (video){
-    $( "<li class=\"list-group-item\"><a href=\"https://www.youtube.com/watch?v="+ video + "\">" + video + "</a></li>").appendTo('.luke');
-    videoIDarray.push(video);
-  }
+
+ function provideVideoTime (time){
+  seeking = time;
+ }
+
+  socket.on('getCurVideoTime', function(){
+    socket.emit('loadVideoTime',player.getCurrentTime());
+  });
